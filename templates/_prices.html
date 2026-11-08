@@ -1,0 +1,49 @@
+{#
+  _prices.html  (Member 1)
+  ------------------------------------------------------------
+  This is the ONLY place where service names and prices are written.
+  Both index.html and services.html read from this list, so if the
+  team changes a price, change it here once and both pages update.
+
+  A list [ ... ] holds many items. Each item is a dictionary { ... }
+  made of "key": value pairs.
+
+  key         = short id (used in the URL, e.g. /booking?service=washing)
+  price       = number only (no rupee sign)
+  unit        = "kg" or "item"
+  NOTE: These are SAMPLE prices. The 3 teammates must agree on final ones.
+#}
+{% set services = [
+  {
+    "key": "washing",
+    "name": "Washing",
+    "icon": "🧺",
+    "description": "Get your clothes washed with care and freshness.",
+    "price": 50,
+    "unit": "kg"
+  },
+  {
+    "key": "ironing",
+    "name": "Ironing",
+    "icon": "👔",
+    "description": "Crisp and neat clothes every time.",
+    "price": 10,
+    "unit": "item"
+  },
+  {
+    "key": "dry-cleaning",
+    "name": "Dry Cleaning",
+    "icon": "🧥",
+    "description": "Professional care for special clothes.",
+    "price": 100,
+    "unit": "item"
+  },
+  {
+    "key": "wash-and-iron",
+    "name": "Wash and Iron",
+    "icon": "✨",
+    "description": "Clean and neatly ironed clothes.",
+    "price": 60,
+    "unit": "kg"
+  }
+] %}

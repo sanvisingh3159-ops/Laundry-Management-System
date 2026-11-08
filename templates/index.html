@@ -1,0 +1,78 @@
+{#
+  index.html  (Member 1) - the Homepage
+  "extends" means: use base.html (navbar + footer) and fill in the blocks.
+  "import" loads the service list from _prices.html.
+#}
+{% extends "base.html" %}
+{% from "_prices.html" import services %}
+
+{% block title %}FreshFold Laundry - Home{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. HERO / WELCOME SECTION ============ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <h1>Your Laundry,<br>Our Responsibility</h1>
+    <p>Clean clothes. Fresh feel. Always on time.</p>
+    <div class="hero-buttons">
+      <a class="btn" href="{{ url_for('booking') }}">Book a Service</a>
+      <a class="btn btn-outline" href="{{ url_for('services') }}">View Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. SHORT INTRODUCTION + SERVICES PREVIEW ============ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-subtitle">
+      Welcome to FreshFold Laundry. Book a pickup online, see your bill
+      instantly and track your clothes until they are back with you.
+    </p>
+
+    <div class="grid grid-4">
+      <!-- Loop: repeat this card once for every service in the list -->
+      {% for s in services %}
+      <div class="card service-mini">
+        <div class="icon">{{ s.icon }}</div>
+        <h3>{{ s.name }}</h3>
+        <p class="price">₹{{ s.price }} per {{ s.unit }}</p>
+        <!-- "?service=..." sends the service name to the booking page -->
+        <a class="btn btn-small btn-light" href="{{ url_for('booking', service=s.key) }}">Book Now</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. WHY CHOOSE US ============ -->
+<section class="section section-tint">
+  <div class="container">
+    <h2 class="section-title">Why Choose Us?</h2>
+    <div class="grid grid-4">
+      <div class="why">
+        <div class="icon">🛡️</div>
+        <h3>Premium Quality Care</h3>
+        <p>Every garment is handled gently and checked before it returns.</p>
+      </div>
+      <div class="why">
+        <div class="icon">🚚</div>
+        <h3>On-Time Delivery</h3>
+        <p>Pickup and delivery at the time you choose.</p>
+      </div>
+      <div class="why">
+        <div class="icon">💰</div>
+        <h3>Affordable Prices</h3>
+        <p>Clear prices and an automatic bill. No hidden charges.</p>
+      </div>
+      <div class="why">
+        <div class="icon">🌿</div>
+        <h3>Eco-Friendly Products</h3>
+        <p>Gentle detergents that are kind to clothes and to nature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

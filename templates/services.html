@@ -1,0 +1,41 @@
+{#
+  services.html  (Member 1) - the Services page
+  Prices come from _prices.html. Edit them THERE, not here.
+#}
+{% extends "base.html" %}
+{% from "_prices.html" import services %}
+
+{% block title %}FreshFold Laundry - Services{% endblock %}
+
+{% block content %}
+
+<!-- Blue banner at the top of the page (class "page-hero" is reusable) -->
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Services</h1>
+    <p>Premium laundry care for your clothes</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+
+      <!-- One big card per service -->
+      {% for s in services %}
+      <div class="card service-card">
+        <div class="service-visual">{{ s.icon }}</div>
+        <div class="service-info">
+          <h3>{{ s.name }}</h3>
+          <p>{{ s.description }}</p>
+          <p class="price">₹{{ s.price }} per {{ s.unit }}</p>
+          <a class="btn btn-small" href="{{ url_for('booking', service=s.key) }}">Book Now →</a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

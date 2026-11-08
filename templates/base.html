@@ -1,0 +1,97 @@
+{#
+  base.html  (Member 1)
+  ------------------------------------------------------------
+  This is the "parent" template. It holds the parts that are the SAME on
+  every page: the <head>, the navigation bar and the footer.
+  Every other page starts with an "extends" line pointing to this file
+  and only fills the blocks below (title, content, scripts).
+
+  A "block" is a hole that child pages fill.
+  url_for() makes a link from a Flask function name, so we never
+  hard-code addresses like "/services".
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the site fit phone screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FreshFold Laundry{% endblock %}</title>
+
+  <!-- Google font (needs internet; the site still works with a fallback font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Our own stylesheet, loaded using url_for('static', ...) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- ================= NAVIGATION BAR ================= -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+
+      <!-- Logo / brand name -->
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-icon">🧺</span>
+        <span class="brand-text">FreshFold<br><small>Laundry</small></span>
+      </a>
+
+      <!-- Menu button (only visible on mobile, see style.css and script.js) -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+
+      <!-- Links. request.endpoint tells us which page we are on,
+           so we can highlight the current link with the class "active". -->
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ url_for('index') }}"    class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('services') }}" class="{% if request.endpoint == 'services' %}active{% endif %}">Services</a>
+        <a href="{{ url_for('booking') }}"  class="{% if request.endpoint == 'booking' %}active{% endif %}">Book Now</a>
+        <a href="{{ url_for('tracking') }}" class="{% if request.endpoint == 'tracking' %}active{% endif %}">Track Order</a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= PAGE CONTENT ================= -->
+  <!-- Each page puts its own content here -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-icon">🧺</span>
+          <span class="brand-text">FreshFold<br><small>Laundry</small></span>
+        </div>
+        <p>Fresh Clothes. Happy You.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('services') }}">Services</a>
+        <a href="{{ url_for('booking') }}">Book Now</a>
+        <a href="{{ url_for('tracking') }}">Track Order</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <!-- Sample contact details. Replace with your real ones. -->
+        <p>📞 +91 8130401655</p>
+        <p>✉️ hello@freshfold.com</p>
+        <p>📍 123 Laundry Lane, Clean City</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 FreshFold Laundry · College project</p>
+  </footer>
+
+  <!-- Our small JavaScript file (mobile menu) -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

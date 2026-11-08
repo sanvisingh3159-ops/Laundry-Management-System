@@ -1,0 +1,218 @@
+/* ============================================================
+   style.css  (Member 1)  -  FreshFold Laundry
+   Used by EVERY page. Teammates: reuse these classes
+   (.container, .page-hero, .card, .btn, .grid, .section).
+   ============================================================ */
+
+/* ---------- 1. COLOUR THEME ----------
+   CSS variables: change a colour here and the whole site changes. */
+:root {
+  --navy:   #0b3d91;   /* dark blue: navbar text, footer, headings */
+  --blue:   #1e66f5;   /* main button colour */
+  --sky:    #eaf2ff;   /* very light blue card/section background */
+  --white:  #ffffff;
+  --text:   #1d2b45;   /* normal text */
+  --muted:  #5b6b86;   /* lighter grey-blue text */
+  --radius: 14px;      /* rounded corners */
+  --shadow: 0 6px 20px rgba(11, 61, 145, 0.12);
+}
+
+/* ---------- 2. BASIC RESET ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }  /* same sizing rules everywhere */
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+
+/* Keeps content centred and not too wide on big screens */
+.container { width: 90%; max-width: 1100px; margin: 0 auto; }
+
+/* ---------- 3. BUTTONS ---------- */
+.btn {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 2px solid var(--blue);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover { background: var(--navy); border-color: var(--navy); }
+.btn-small { padding: 8px 18px; font-size: 0.9rem; }
+.btn-outline { background: transparent; border-color: var(--white); }
+.btn-outline:hover { background: var(--white); color: var(--navy); border-color: var(--white); }
+.btn-light { background: var(--sky); color: var(--blue); border-color: var(--sky); }
+.btn-light:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+/* Visible outline for keyboard users */
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+/* ---------- 4. NAVIGATION BAR ---------- */
+.navbar {
+  background: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: sticky;          /* stays at the top while scrolling */
+  top: 0;
+  z-index: 100;
+}
+.navbar-inner {
+  display: flex;             /* flex = put items in one row */
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--navy); }
+.brand-icon { font-size: 2rem; }
+.brand-text { font-weight: 700; line-height: 1.1; font-size: 1.15rem; }
+.brand-text small { font-weight: 600; font-size: 1rem; }
+
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--navy); }
+.nav-links a:hover { color: var(--blue); }
+.nav-links a.active { border-bottom: 2px solid var(--blue); }   /* current page */
+.nav-links a.btn { color: var(--white); border-bottom: 2px solid var(--blue); }
+.nav-links a.btn:hover { color: var(--white); }
+
+.menu-toggle {               /* hamburger button: hidden on laptops */
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+/* ---------- 5. HERO (homepage banner) ---------- */
+.hero {
+  background: linear-gradient(120deg, var(--navy) 0%, #2f78e8 60%, #7fb2ff 100%);
+  /* Want a photo instead? Save it in static/images/ and use:
+     background: linear-gradient(rgba(11,61,145,.7), rgba(11,61,145,.4)),
+                 url("images/hero.jpg") center/cover;                 */
+  color: var(--white);
+  padding: 90px 0;
+}
+.hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 14px; }
+.hero p { font-size: 1.15rem; margin-bottom: 28px; }
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Smaller banner for inner pages (services, booking, tracking...) */
+.page-hero {
+  background: linear-gradient(120deg, var(--navy) 0%, #2f78e8 100%);
+  color: var(--white);
+  padding: 50px 0;
+}
+.page-hero h1 { font-size: 2.2rem; }
+
+/* ---------- 6. SECTIONS ---------- */
+.section { padding: 60px 0; }
+.section-tint { background: var(--sky); }
+.section-title { text-align: center; color: var(--navy); font-size: 1.9rem; margin-bottom: 8px; }
+.section-subtitle { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 36px; }
+
+/* ---------- 7. GRID LAYOUT ----------
+   grid = rows and columns. repeat(4, 1fr) = 4 equal columns. */
+.grid { display: grid; gap: 24px; }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+/* ---------- 8. CARDS ---------- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+.price { color: var(--navy); font-weight: 700; font-size: 1.1rem; }
+.icon { font-size: 2.4rem; margin-bottom: 8px; }
+
+/* Small service cards on the homepage */
+.service-mini { text-align: center; }
+.service-mini h3 { color: var(--navy); margin-bottom: 4px; }
+.service-mini .price { margin-bottom: 14px; }
+
+/* Big service cards on the services page */
+.service-card { display: flex; gap: 20px; align-items: center; background: var(--sky); }
+.service-visual {
+  font-size: 4rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;           /* do not squash the icon box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.service-info h3 { color: var(--navy); font-size: 1.3rem; }
+.service-info p { color: var(--muted); margin-bottom: 8px; }
+.service-info .price { color: var(--navy); margin-bottom: 12px; }
+
+/* "Why choose us" items */
+.why { text-align: center; padding: 10px; }
+.why h3 { color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
+.why p { color: var(--muted); font-size: 0.92rem; }
+
+/* ---------- 9. FOOTER ---------- */
+.footer { background: var(--navy); color: var(--white); padding-top: 40px; }
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.5fr;
+  gap: 30px;
+}
+.footer .brand { color: var(--white); margin-bottom: 8px; }
+.footer h4 { margin-bottom: 10px; }
+.footer-col a, .footer-col p { display: block; font-size: 0.9rem; margin-bottom: 6px; color: #d6e4ff; }
+.footer-col a:hover { color: var(--white); }
+.footer-brand p { color: #d6e4ff; font-size: 0.9rem; }
+.copyright {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #b7c9ee;
+  padding: 18px 0;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- 10. RESPONSIVE (tablet and mobile) ----------
+   @media = "only apply these rules when the screen is this small". */
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .menu-toggle { display: block; }
+
+  /* The links become a dropdown list under the navbar */
+  .nav-links {
+    display: none;                 /* hidden until the button is tapped */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 5%;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
+  }
+  .nav-links.open { display: flex; }   /* script.js adds the class "open" */
+
+  .hero { padding: 60px 0; }
+  .hero h1 { font-size: 2.1rem; }
+  .grid-4, .grid-2 { grid-template-columns: 1fr; }
+  .service-card { flex-direction: column; text-align: center; }
+  .footer-inner { grid-template-columns: 1fr; }
+}
+
+/* Respect people who turn off animations in their device settings */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
