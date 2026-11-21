@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Our own styles -->
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+<!-- Blue banner -->
+<section class="page-hero">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>See all orders, revenue and popular services in one place.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <!-- Three summary cards -->
+        <div class="grid">
+            <div class="card">
+                <h3>Total Revenue</h3>
+                <p class="stat-number">Rs. {{ summary.total_revenue }}</p>
+            </div>
+            <div class="card">
+                <h3>Pending Orders</h3>
+                <p class="stat-number">{{ summary.pending }}</p>
+            </div>
+            <div class="card">
+                <h3>Completed Orders</h3>
+                <p class="stat-number">{{ summary.completed }}</p>
+            </div>
+        </div>
+
+        <!-- Popular services ranking with simple bars -->
+        <div class="card" style="margin-top:24px;">
+            <h3>Popular Services</h3>
+            {% if summary.ranking %}
+            {% set biggest = summary.ranking[0][1] %}
+            {% for service, count in summary.ranking %}
+            <div class="bar-row">
+                <p>{{ loop.index }}. {{ service }}</p>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: {{ (count / biggest * 100) | round | int }}%;">
+                        {{ count }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No orders yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Table of all orders with a status-change form on each row -->
+        <div class="card" style="margin-top:24px; overflow-x:auto;">
+            <h3>All Orders</h3>
+            {% if orders %}
+            <table class="orders-table">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Name</th>
+                    <th>Service</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Pickup</th>
+                    <th>Status</th>
+                    <th>Change Status</th>
+                </tr>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.full_name }}</td>
+                    <td>{{ order.service }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>Rs. {{ order.total }}</td>
+                    <td>{{ order.pickup_date }} {{ order.pickup_time }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('dashboard') }}">
+                            <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                            <select name="new_status">
+                                {% for status in statuses %}
+                                <option value="{{ status }}" {% if status==order.status %}selected{% endif %}>{{ status
+                                    }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn-small" type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>No orders yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

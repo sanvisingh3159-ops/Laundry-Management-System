@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Our own styles (we create this file in the next step) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+<!-- Blue banner (Member 1's class) -->
+<section class="page-hero">
+    <div class="container">
+        <h1>Track Your Order</h1>
+        <p>Enter your Order ID to see where your laundry is.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <!-- Search box: sends the Order ID to /tracking -->
+        <div class="card track-box">
+            <form method="GET" action="{{ url_for('tracking') }}">
+                <input type="text" name="order_id" placeholder="Enter Order ID, e.g. ORD1001" required>
+                <button class="btn" type="submit">Track Order</button>
+            </form>
+        </div>
+
+        <!-- The user searched, but no order matched -->
+        {% if searched and order is none %}
+        <div class="card not-found">
+            <h3>Order not found</h3>
+            <p>We could not find that Order ID. Please check it and try again.</p>
+        </div>
+        {% endif %}
+
+        <!-- An order was found: show details and the 4-step guide -->
+        {% if order %}
+        <div class="card">
+            <h3>Order {{ order.order_id }}</h3>
+            <p>Name: {{ order.full_name }}</p>
+            <p>Service: {{ order.service }} ({{ order.quantity }})</p>
+            <p>Total: Rs. {{ order.total }}</p>
+            <p>Pickup: {{ order.pickup_date }} at {{ order.pickup_time }}</p>
+        </div>
+
+        <div class="steps">
+            {% for status in statuses %}
+            <!-- "done" if this step is at or before the current one -->
+            <div class="step {% if loop.index0 <= current_step %}done{% endif %}">
+                <div class="step-number">{{ loop.index }}</div>
+                <p>{{ status }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

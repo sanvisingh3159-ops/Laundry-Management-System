@@ -1,0 +1,3 @@
+order_id,full_name,phone,service,quantity,total,pickup_date,pickup_time,instructions,status,created_at
+ORD1001,Aman Kumar,9876543210,washing,5,250,2026-11-25,10:00,,In Laundry,2026-11-22 00:25
+ORD1002,nandini,1234567890,washing,2,100,2026-12-07,12:00,wash,In Laundry,2026-11-22 01:38

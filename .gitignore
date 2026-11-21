@@ -1,0 +1,10 @@
+# Python's automatic cache folders
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+
+# My temporary test files (never commit these)
+fake_billing.py
+templates/booking_test.html

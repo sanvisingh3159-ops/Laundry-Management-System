@@ -1,0 +1,109 @@
+/* dashboard.css - Member 3's styles for tracking and dashboard pages */
+
+/* ---------- Tracking page ---------- */
+
+/* The box that holds the Order ID input */
+.track-box {
+    margin-bottom: 24px;
+}
+
+.track-box input[type="text"] {
+    padding: 10px 14px;
+    width: 280px;
+    max-width: 100%;
+    border: 1px solid #b6c8e6;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+/* The "Order not found" message box */
+.not-found {
+    border-left: 5px solid #d9534f;
+    margin-bottom: 24px;
+}
+
+/* The row of 4 steps */
+.steps {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+/* One step: grey by default */
+.step {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 16px 8px;
+    border-radius: 10px;
+    background: #eef2f8;
+    color: #7a869a;
+}
+
+/* The circle with the step number */
+.step-number {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    background: #c9d3e3;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* A finished or current step: blue */
+.step.done {
+    background: #e3eeff;
+    color: #1a56c4;
+    font-weight: bold;
+}
+
+.step.done .step-number {
+    background: #1a56c4;
+}
+
+/* ---------- Dashboard page (used in later steps) ---------- */
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1a56c4;
+}
+
+/* One row of the popular services bars */
+.bar-row {
+    margin-bottom: 14px;
+}
+
+.bar-track {
+    background: #eef2f8;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    background: #1a56c4;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    min-width: 30px;
+}
+
+/* The orders table */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 10px;
+    border-bottom: 1px solid #dde5f2;
+    text-align: left;
+}
+
+.orders-table th {
+    background: #e3eeff;
+}
