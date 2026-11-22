@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = "preview-key"      # needed for flash messages
 
 @app.route("/")
 def index():
@@ -10,14 +11,12 @@ def index():
 def services():
     return render_template("services.html")
 
-# Placeholders so the navbar links work until teammates finish their pages
-@app.route("/booking")
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
-    return "Booking page - Member 2 will build this"
-
-@app.route("/tracking")
-def tracking():
-    return "Tracking page - Member 3 will build this"
+    if request.method == "POST":
+        flash("Booking received! (preview mode, not saved)")
+        return redirect(url_for("booking"))
+    return render_template("booking.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
