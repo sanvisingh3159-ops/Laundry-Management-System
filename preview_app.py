@@ -18,5 +18,18 @@ def booking():
         return redirect(url_for("booking"))
     return render_template("booking.html")
 
+# TEMPORARY placeholders: replace with render_template(...) once the pages exist
+@app.route("/tracking", methods=["GET", "POST"])
+def tracking():
+    return "<h2>Tracking page coming soon</h2><a href='/'>Back to Home</a>"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return "<h2>Login page coming soon</h2><a href='/'>Back to Home</a>"
+
+@app.route("/admin")
+def admin():
+    return "<h2>Admin dashboard coming soon</h2><a href='/'>Back to Home</a>"
+
 if __name__ == "__main__":
     app.run(debug=True)
