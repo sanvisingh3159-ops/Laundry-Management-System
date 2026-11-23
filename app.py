@@ -4,10 +4,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import storage
 import reports  # our report functions # our own CSV functions
-from fake_billing import (
-    validate_booking,
-    generate_confirmation,
-)  # TEMPORARY: replace with Member 2's billing.py later
+from billing import calculate_bill, validate_booking  # Member 2's real functions
 
 app = Flask(__name__)  # create the Flask application
 
@@ -53,17 +50,20 @@ def booking():
         is_valid, errors = validate_booking(form_data)  # Member 2's checker
 
         if is_valid:
-            details = generate_confirmation(form_data)  # cleaned data + total price
+            service = form_data.get("service", "").strip()
+            quantity = int(form_data.get("quantity", "0"))
+            total = calculate_bill(service, quantity)  # Member 2's price calculator
+
             saved = storage.save_order(
                 {
-                    "full_name": details["full_name"],
-                    "phone": details["phone"],
-                    "service": details["service"],
-                    "quantity": details["quantity"],
-                    "total": details["total"],
-                    "pickup_date": details["pickup_date"],
-                    "pickup_time": details["pickup_time"],
-                    "instructions": details["instructions"],
+                    "full_name": form_data.get("full_name", "").strip(),
+                    "phone": form_data.get("phone", "").strip(),
+                    "service": service,
+                    "quantity": quantity,
+                    "total": total,
+                    "pickup_date": form_data.get("pickup_date", "").strip(),
+                    "pickup_time": form_data.get("pickup_time", "").strip(),
+                    "instructions": form_data.get("instructions", "").strip(),
                 }
             )
             # Send the user to the tracking page for their new order
@@ -72,7 +72,7 @@ def booking():
     # GET visit, or POST with errors: show the form again
     selected_service = request.args.get("service", "")  # from /booking?service=washing
     return render_template(
-        "booking_test.html", errors=errors, selected_service=selected_service
+        "booking.html", errors=errors, selected_service=selected_service
     )
 
 
